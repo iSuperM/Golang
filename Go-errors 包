@@ -1,1 +1,39 @@
+go 语言中error类型
 
+error 类型是go语言中预定义好的接口，里面定义了一个method Error()
+
+type error interface{
+  Error() string
+}
+
+errors 包的定义相对来说简单一点
+
+package errors
+
+// New returns an error that formats as the given text.
+func New(text string) error {
+	return &errorString{text}
+}
+
+// errorString is a trivial implementation of error.
+type errorString struct {
+	s string
+}
+
+func (e *errorString) Error() string {
+	return e.s
+}
+
+案例
+
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	err := errors.New("errors test")
+	fmt.Println(err)
+}
